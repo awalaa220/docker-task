@@ -1,0 +1,30 @@
+
+
+services:
+  webserver:
+    image: nginx
+    depends_on:
+      - db 
+    ports:
+      - "8080:80"
+    networks:
+      - network-1
+    
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "${pass_db}"
+    env_file:
+      - .env
+    networks:
+      - network-1
+
+    volumes:
+      - type: volume
+        source: vol-1
+        target: /var/lib/postgresql/data
+networks:
+  network-1:
+volumes:
+  vol-1:  
+      
